@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import {Component} from 'react'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Auxiliary from './hoc/Auxiliary'
+
+class App extends Component{
+  state = {
+    isHomeScreen:true
+  }
+
+  enterHandler=()=>{    
+    const currState = {...this.state};
+    currState.isHomeScreen = !this.state.isHomeScreen;
+    this.setState(currState)
+  }
+
+  render(){
+    let homeScreen="";
+    if(this.state.isHomeScreen){
+      homeScreen = <button onClick={this.enterHandler}>Covid worldwide!</button>;
+    }else{
+      homeScreen=<aside>This is the aside</aside>;
+    }
+
+    return(
+      <Auxiliary>
+        <header><h1>This is covid now!</h1></header>
+        <main>
+          {homeScreen}
+        </main>
+        <footer>This is the footer</footer>
+      </Auxiliary>
+    )
+  }
 }
 
 export default App;
