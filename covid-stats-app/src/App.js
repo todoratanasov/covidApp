@@ -1,7 +1,8 @@
-import {Component} from 'react'
+import {Component} from 'react';
 import './App.css';
 
-import Auxiliary from './hoc/Auxiliary'
+import Auxiliary from './hoc/Auxiliary';
+import Countries from './containers/Countries/Countries';
 
 class App extends Component{
   state = {
@@ -19,7 +20,7 @@ class App extends Component{
     if(this.state.isHomeScreen){
       homeScreen = <button onClick={this.enterHandler}>Covid worldwide!</button>;
     }else{
-      homeScreen=<aside>This is the aside</aside>;
+      homeScreen=<Countries/>
     }
 
     return(
