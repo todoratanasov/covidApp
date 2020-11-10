@@ -6,6 +6,8 @@ import * as actionTypes from '../../store/actions';
 
 import Country from '../../components/Country/Country';
 import CountryInfo from '../../components/CountryInfo/CountryInfo';
+import Modal from '../../UI/Modal/Modal';
+
 
 class Countries extends Component{
     state = {
@@ -26,7 +28,6 @@ class Countries extends Component{
             .filter(country=> country!==undefined);
 
             this.props.onSetAllSummary(filteredCountries);
-            console.log(this.props.allSummary);
         })
     }
 
@@ -68,6 +69,7 @@ class Countries extends Component{
                 this is aside
                 <Switch>
                     <Route path="/detailed/:country" exact component={CountryInfo}/>
+                    <Route path="/history/:country" exact component={Modal}/>
                 </Switch>
             </aside>
             </main>

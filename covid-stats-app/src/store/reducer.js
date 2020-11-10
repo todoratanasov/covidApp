@@ -3,7 +3,8 @@ import * as actionTypes from './actions';
 
 const initialState = {
     allSummary:[],
-    isSorted:false
+    isSorted:false,
+    historyStats:[]
 }
 
 const reducer = (state=initialState, action)=>{
@@ -19,10 +20,19 @@ const reducer = (state=initialState, action)=>{
                 ...state,
                 isSorted:!state.isSorted
             }
-        
+        case actionTypes.SETTING_HISTORY:
+            return{
+                ...state,
+                historyStats:action.val
+            }
+        case actionTypes.DELETE_HISTORY:
+            return{
+                ...state,
+                historyStats:[]
+            }
+        default:     
+            return state;
     }  
-
-    return state;
 }
 
 export default reducer;
