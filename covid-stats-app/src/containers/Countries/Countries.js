@@ -1,8 +1,11 @@
-import {Component} from 'react'
+import {Component} from 'react';
 import axios from 'axios';
+import {Route, Switch} from 'react-router-dom';
+import{connect} from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 import Country from '../../components/Country/Country';
-import Auxiliary from '../../hoc/Auxiliary';
+import CountryInfo from '../../components/CountryInfo/CountryInfo';
 
 class Countries extends Component{
     state = {
@@ -22,57 +25,65 @@ class Countries extends Component{
             })
             .filter(country=> country!==undefined);
 
-            this.setState({allSummary:filteredCountries});
+            this.props.onSetAllSummary(filteredCountries);
+            console.log(this.props.allSummary);
         })
     }
 
-    countrySelectHandler=(country)=>{
-        console.log(country)
-    }
-
-    sortHandler = ()=>{
-        const currState = {...this.state};
-        currState.isSorted
+    sortHandler = ()=>{        
+        this.props.isSorted
         ?
-        currState.allSummary.sort((a,b)=>{
+        this.props.allSummary.sort((a,b)=>{
             return a.TotalConfirmed - b.TotalConfirmed
         })
         :
-        currState.allSummary.sort((a,b)=>{
+        this.props.allSummary.sort((a,b)=>{
             return b.TotalConfirmed - a.TotalConfirmed
         });
 
-        currState.isSorted = !this.state.isSorted;
-
-        this.setState(currState)
+        this.props.onSort()
     }
 
-    render(){        
-        const countries = this.state.allSummary.map((country)=>{                        
+    render(){       
+        const countries = this.props.allSummary.map(country=>{                        
             return <Country 
             title={country.Country} 
             key={country.CountryCode} 
-            slug={country.SLug}
-            newConfirmed={country.NewConfirmed}
+            slug={country.Slug}
             totalConfirmed={country.TotalConfirmed}
-            countrySelect={this.countrySelectHandler}
             />         
-        })
+        });
     
         return(
-            <Auxiliary>
-            <nav>
-                <ul>                    
-                {countries}
-                </ul>
-        <button onClick={this.sortHandler}>Sort by: {this.state.isSorted?"Аscending":"Descending"}</button>
-            </nav>
+            <main>
+                <section>
+                    <nav>
+                        <ul>                    
+                            {countries}
+                        </ul>
+                        <button onClick={this.sortHandler}>Sort by: {this.props.isSorted?"Аscending":"Descending"}</button>
+                    </nav>
+                </section>
             <aside>
                 this is aside
+                <Switch>
+                    <Route path="/detailed/:country" exact component={CountryInfo}/>
+                </Switch>
             </aside>
-            </Auxiliary>
+            </main>
         )
     }
 }
-
-export default Countries;
+const mapStateToProps = state =>{
+    return {
+        allSummary: state.allSummary,
+        isSorted: state.isSorted
+    }
+};
+const mapDispatchToProps = dispatch=>{
+    return {
+        onSetAllSummary: (value)=> dispatch({type: actionTypes.SETTING_ALL_SUMMARY,val:value}),
+        onSort: ()=>dispatch({type: actionTypes.IS_SORTED})
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Countries);

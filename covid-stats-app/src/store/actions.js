@@ -1,0 +1,2 @@
+export const SETTING_ALL_SUMMARY = "SETTING_ALL_SUMMARY";
+export const IS_SORTED = "IS_SORTED";
