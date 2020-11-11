@@ -5,7 +5,9 @@ const initialState = {
     allSummary:[],
     isSorted:false,
     historyStats:[],
-    showModal:false
+    showModal:false,
+    showSpinnerCountries:true,
+    showSpinnerModal:true
 }
 
 const reducer = (state=initialState, action)=>{
@@ -35,6 +37,16 @@ const reducer = (state=initialState, action)=>{
             return{
                 ...state,
                 showModal:!state.showModal
+            };
+        case actionTypes.TOGLE_SPINNER_COUNTRIES:
+            return{
+                ...state,
+                showSpinnerCountries:!state.showSpinnerCountries
+            };
+        case actionTypes.TOGLE_SPINNER_MODAL:
+            return{
+                ...state,
+                showSpinnerModal:!state.showSpinnerModal
             };
         default:     
             return state;

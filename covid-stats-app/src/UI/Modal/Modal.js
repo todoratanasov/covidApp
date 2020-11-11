@@ -6,6 +6,7 @@ import * as actionTypes from '../../store/actions';
 import History from '../../components/Hystory/History';
 import Auxiliary from '../../hoc/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
+import Spinner from '../Spinner/Spinner'
 
 
 class Modal extends Component{
@@ -15,10 +16,12 @@ class Modal extends Component{
         axios.get(`/dayone/country/${country}`)
         .then(result=>{
             this.props.onSetHistory(result.data);
+            this.props.onLoading();
         })
     }
     componentWillUnmount(){
-        this.props.onDeleteHistory()
+        this.props.onDeleteHistory();        
+        this.props.onLoading();
     }
     render(){
         const allDays = this.props.historyStats.map(day=>{
@@ -34,9 +37,13 @@ class Modal extends Component{
             )
         })
         return(
+            this.props.showSpinnerModal
+            ?
+            <Spinner/>
+            :
             <Auxiliary>
                 <Backdrop onTogle={this.props.onTogle}/>
-                <div className='Modal'>
+                <div className='modal'>
                     <h2>{this.props.historyStats[0]?this.props.historyStats[0].Country:null}</h2>
                     {allDays}
                 </div>
@@ -46,7 +53,8 @@ class Modal extends Component{
 }
 const mapStateToProps = (state)=>{
     return{
-        historyStats:state.historyStats
+        historyStats:state.historyStats,        
+        showSpinnerModal:state.showSpinnerModal
     }
 }
 const mapDispatchToProps = dispatch=>{
@@ -60,6 +68,9 @@ const mapDispatchToProps = dispatch=>{
         }),
         onTogle:()=>dispatch({
             type:actionTypes.TOGLE_MODAL
+        }),        
+        onLoading:()=>dispatch({
+            type:actionTypes.TOGLE_SPINNER_MODAL
         })
     }
 }

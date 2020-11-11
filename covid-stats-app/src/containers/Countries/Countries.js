@@ -7,7 +7,8 @@ import * as actionTypes from '../../store/actions';
 import Country from '../../components/Country/Country';
 import CountryInfo from '../../components/CountryInfo/CountryInfo';
 import Modal from '../../UI/Modal/Modal';
-import Auxiliary from '../../hoc/Auxiliary'
+import Auxiliary from '../../hoc/Auxiliary';
+import Spinner from '../../UI/Spinner/Spinner'
 
 class Countries extends Component{
     state = {
@@ -28,6 +29,7 @@ class Countries extends Component{
             .filter(country=> country!==undefined);
 
             this.props.onSetAllSummary(filteredCountries);
+            this.props.onLoading();
         })
     }
 
@@ -56,22 +58,30 @@ class Countries extends Component{
         });
     
         return(
-            <Auxiliary>
-                <section>
+            this.props.showSpinnerCountries
+            ?
+            <Spinner/>
+            :
+            <Auxiliary>  
+                
+                    <section>
                     <nav>
+                        <div><button className='sort-button' onClick={this.sortHandler}>Sort by: {this.props.isSorted?"Descending":"Аscending"}</button></div>
+                    
                         <ul>                    
                             {countries}
                         </ul>
-                        <button onClick={this.sortHandler}>Sort by: {this.props.isSorted?"Аscending":"Descending"}</button>
+                        
                     </nav>
                 </section>
-            <aside>
-                this is aside
+                <aside>
                 <Switch>
                     <Route path="/detailed/:country" exact component={CountryInfo}/>
-                    {this.props.showModal?<Route path="/history/:country" exact component={Modal}/>:null}
+                    {
+                    this.props.showModal?<Route path="/history/:country" exact component={Modal}/>:null
+                    }
                 </Switch>
-            </aside>
+            </aside> 
             </Auxiliary>
         )
     }
@@ -80,13 +90,15 @@ const mapStateToProps = state =>{
     return {
         allSummary: state.allSummary,
         isSorted: state.isSorted,
-        showModal:state.showModal
+        showModal:state.showModal,
+        showSpinnerCountries:state.showSpinnerCountries
     }
 };
 const mapDispatchToProps = dispatch=>{
     return {
         onSetAllSummary: (value)=> dispatch({type: actionTypes.SETTING_ALL_SUMMARY,val:value}),
-        onSort: ()=>dispatch({type: actionTypes.IS_SORTED})
+        onSort: ()=>dispatch({type: actionTypes.IS_SORTED}),
+        onLoading:()=>dispatch({type:actionTypes.TOGLE_SPINNER_COUNTRIES})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Countries);

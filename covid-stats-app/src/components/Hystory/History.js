@@ -22,7 +22,7 @@ const history = (props)=>{
                     <td>{props.confirmed}</td>
                 </tr>
                 <tr>
-                    <td>Recovered</td>
+                    <td>Recovered Cases</td>
                     <td>{props.recovered}</td>
                 </tr>
                 <tr>

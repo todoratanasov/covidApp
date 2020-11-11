@@ -14,11 +14,12 @@ class CountryInfo extends Component{
         return (
                 <div>
                     <table>
+                    <caption>{countryStats[0].Country}</caption>
                         <thead>
                             <tr>
                                 <th>New Confirmed Cases</th>
-                                <th>New Recovered Patients</th>
-                                <th>New Death Patients</th>
+                                <th>New Recovered Cases</th>
+                                <th>New Death Cases</th>
                             </tr>
                     </thead>
                     <tbody>
@@ -39,8 +40,8 @@ class CountryInfo extends Component{
                         <thead>
                             <tr>
                                 <th>Total Confirmed Cases</th>
-                                <th>Total Recovered Patients</th>
-                                <th>Total Death Patients</th>
+                                <th>Total Recovered Cases</th>
+                                <th>Total Death Cases</th>
                             </tr>
                     </thead>
                     <tbody>
@@ -55,7 +56,7 @@ class CountryInfo extends Component{
                                 {countryStats[0].TotalDeaths}
                             </td>
                         </tr>
-                        <tr><td onClick={this.props.onTogle}><Link to={`/history/${country}`}>Full COVID-19 history of {countryStats[0].Country}</Link></td></tr>
+                        <tr className='navigation-row'><td colSpan='3' ><span><Link onClick={this.props.onTogle} to={`/history/${country}`}>Full COVID-19 history of {countryStats[0].Country}</Link></span></td></tr>
                     </tbody>
                 </table>
             </div>

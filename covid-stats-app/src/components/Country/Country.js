@@ -3,8 +3,9 @@ import {NavLink} from 'react-router-dom';
 const country = (props)=>{
     return(
         <NavLink to={{pathname:`/detailed/${props.slug}`}}>
-            <li onClick={props.countrySelect}>
-                {`${props.title} Total confirmed: ${props.totalConfirmed}`}
+            <li className='country' onClick={props.countrySelect}>
+            <span className='country-title'>{`${props.title}`}</span>
+            <span className='country-confirmed'>Total confirmed: {`${props.totalConfirmed}`}</span>
             </li>
         </NavLink>
             
