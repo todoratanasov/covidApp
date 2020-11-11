@@ -1,5 +1,86 @@
+header>h1{
+  text-align: center;
+}
+header{
+  background-color: aqua;
+}
+footer{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;  
+  text-align: center;
+  background-color:aqua;
+}
+main{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  height: 88vh;
+  background-color: burlywood;
+
+}
+section{
+  flex:1;
+  background-color:orange;
+}
+aside{
+  display: flex;
+  justify-content: center;
+  flex:2;
+  background-color: darkgrey;
+}
+a{
+  color: black;
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+}
+.main-button{
+  background-color: crimson;
+  height: 30vh;
+  width: 30vh;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  transition-property: font-size;
+  transition-property: background-color;
+  transition-duration: 1s;
+
+}
+.main-button:hover{
+  background-color: cyan;
+  font-size: 1.8rem
+}
+.main-button:focus {
+  outline:0;
+}
 .App {
   text-align: center;
+}
+.country{
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: palegreen;
+  border: 2px solid palevioletred;
+  margin:1px;
+  border-radius: 5px;
+  transition-property: background-color;
+  transition-duration: 0.6s;
+  transition-property: border;
+  transition-duration: 0.6s;
+}
+.country:hover{
+  background-color: palevioletred;
+  border: 2px solid palegreen;
+  font-weight: bold;
+}
+.country-confirmed{
+  flex:1;
+}
+.country-title{
+  flex:1
 }
 
 .Modal {
