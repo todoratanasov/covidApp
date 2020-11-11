@@ -4,7 +4,8 @@ import * as actionTypes from './actions';
 const initialState = {
     allSummary:[],
     isSorted:false,
-    historyStats:[]
+    historyStats:[],
+    showModal:false
 }
 
 const reducer = (state=initialState, action)=>{
@@ -19,17 +20,22 @@ const reducer = (state=initialState, action)=>{
             return{
                 ...state,
                 isSorted:!state.isSorted
-            }
+            };
         case actionTypes.SETTING_HISTORY:
             return{
                 ...state,
                 historyStats:action.val
-            }
+            };
         case actionTypes.DELETE_HISTORY:
             return{
                 ...state,
                 historyStats:[]
-            }
+            };
+        case actionTypes.TOGLE_MODAL:
+            return{
+                ...state,
+                showModal:!state.showModal
+            };
         default:     
             return state;
     }  

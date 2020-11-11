@@ -1,6 +1,8 @@
 import {Component} from 'react';
 import{connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import * as actionTypes from '../../store/actions';
+
 class CountryInfo extends Component{
 
     render(){                
@@ -53,7 +55,7 @@ class CountryInfo extends Component{
                                 {countryStats[0].TotalDeaths}
                             </td>
                         </tr>
-                        <tr><td><Link to={`/history/${country}`}>Full COVID-19 history of {countryStats[0].Country}</Link></td></tr>
+                        <tr><td onClick={this.props.onTogle}><Link to={`/history/${country}`}>Full COVID-19 history of {countryStats[0].Country}</Link></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -66,5 +68,10 @@ const mapStateToProps = state=>{
         allSummary:state.allSummary
     }
 }
+const mapDispatchToProps = dispatch=>{
+    return{
+        onTogle:()=>dispatch({type:actionTypes.TOGLE_MODAL})
+    }
+}
 
-export default connect(mapStateToProps)(CountryInfo);
+export default connect(mapStateToProps,mapDispatchToProps)(CountryInfo);

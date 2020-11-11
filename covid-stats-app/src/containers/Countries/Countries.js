@@ -7,7 +7,7 @@ import * as actionTypes from '../../store/actions';
 import Country from '../../components/Country/Country';
 import CountryInfo from '../../components/CountryInfo/CountryInfo';
 import Modal from '../../UI/Modal/Modal';
-
+import Auxiliary from '../../hoc/Auxiliary'
 
 class Countries extends Component{
     state = {
@@ -56,7 +56,7 @@ class Countries extends Component{
         });
     
         return(
-            <main>
+            <Auxiliary>
                 <section>
                     <nav>
                         <ul>                    
@@ -69,17 +69,18 @@ class Countries extends Component{
                 this is aside
                 <Switch>
                     <Route path="/detailed/:country" exact component={CountryInfo}/>
-                    <Route path="/history/:country" exact component={Modal}/>
+                    {this.props.showModal?<Route path="/history/:country" exact component={Modal}/>:null}
                 </Switch>
             </aside>
-            </main>
+            </Auxiliary>
         )
     }
 }
 const mapStateToProps = state =>{
     return {
         allSummary: state.allSummary,
-        isSorted: state.isSorted
+        isSorted: state.isSorted,
+        showModal:state.showModal
     }
 };
 const mapDispatchToProps = dispatch=>{
